@@ -1,0 +1,24 @@
+# 配置示例：根据你的资源调整
+data:
+  csv_path: data/labels.csv      # CSV: image_path,patient_id,label,referable,gradable
+  image_root: data/images/
+  img_size: 512
+  batch_size: 16
+  num_workers: 6
+training:
+  epochs: 50
+  seed: 42
+  pretrained: true
+  backbone: efficientnet_b3   # timm 支持的 backbone 名称
+  lr: 3e-4
+  weight_decay: 1e-5
+  optimizer: AdamW
+  scheduler: cosine           # options: cosine, step
+  step_size: 10
+  device: cuda
+  amp: true
+  objective: referable_auc    # 用于模型保存的主指标: referable_auc 或 multiclass_kappa
+output:
+  work_dir: outputs/
+  save_period: 1
+  early_stopping_patience: 8
